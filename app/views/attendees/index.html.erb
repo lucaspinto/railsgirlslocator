@@ -1,0 +1,28 @@
+<h1>Rails Girls Berlin at eurucamp</h1>
+
+<%#= gmaps4rails(@pins) %>
+<%= gmaps("markers" => { "data" => @pins }, "map_options" => { "center_longitude" => 13.24, "center_latitude" => 52.31, "zoom" => 7 }) %>
+<%= yield :scripts %>
+
+<table>
+  <tr>
+    <th class='first'></th>
+    <th>Name</th>
+    <th>Twitter handle</th>
+    <th>Hometown</th>
+  </tr>
+
+<% @attendees.each do |attendee| %>
+  <tr>
+    <td class="first"><%= image_tag(attendee.picture.thumb.url) unless attendee.picture.thumb.blank? %></td>
+    <td><%= link_to(attendee.name, attendee) %></td>
+    <td><%= link_to(attendee.twitter_handle, "http://twitter.com/#{attendee.twitter_handle}", :target => '_blank') if attendee.twitter_handle %></td>
+    <td><%= attendee.address %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<br />
+<%= link_to 'New Attendee', new_attendee_path %>
